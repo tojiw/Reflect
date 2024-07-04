@@ -7,6 +7,7 @@ src:LucideIcon,
 path:string
 }
 
+
 const Buttons: ButtonType[] = [
   {
     label:"Camera",
@@ -41,7 +42,7 @@ const Buttons: ButtonType[] = [
   },
   {
     label:"Uppercase",
-    onClick:()=>console.log("Uppercase clicked"),
+    onClick:()=>{},
     src:CaseUpperIcon,
     path:"/"
   },
