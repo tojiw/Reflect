@@ -4,7 +4,8 @@ interface ButtonType{
 label:string,
 onClick:()=>void,
 src:LucideIcon,
-path:string
+path:string,
+tooltip:string
 }
 
 
@@ -13,50 +14,58 @@ const Buttons: ButtonType[] = [
     label:"Camera",
     onClick:()=>console.log("Camera clicked"),
     src:Camera,
-    path:"/"
+    path:"/",
+    tooltip:"Add Image"
   },
   {
     label:"List",
     onClick:()=>console.log("List clicked"),
     src:List,
-    path:"/"
+    path:"/",
+    tooltip:"Add List"
 
   },
   {
     label:"Bold",
     onClick:()=>console.log("Bold clicked"),
     src:Bold,
-    path:"/"	
+    path:"/"	,
+    tooltip:"Bold"
   },
   {
     label:"Underline",
     onClick:()=>console.log("Underline clicked"),
     src:Underline,
-    path:"/"
+    path:"/",
+    tooltip:"Underline"
   },
   {
     label:"Italic",
     onClick:()=>console.log("Italic clicked"),
     src:Italic,
-    path:"/"
+    path:"/",
+    tooltip:"Italicise"
   },
   {
     label:"Uppercase",
     onClick:()=>{},
     src:CaseUpperIcon,
-    path:"/"
+    path:"/",
+    tooltip:"Change Font"
   },
   {
     label:"Audio",
     onClick:()=>console.log("Audio clicked"),
     src:AudioLines,
-    path:"/"
+    path:"/",
+    tooltip:"Add Voice Note"
   },
   {
     label:"Tags",
     onClick:()=>console.log("Tags clicked"),
     src:TagsIcon,
-    path:"/"
+    path:"/",
+    tooltip:"Add Tags"
   }
 ]
 

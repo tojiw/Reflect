@@ -5,12 +5,24 @@ import Buttons from "@/components/ToolBar";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
 
 export default function Home() {
   const [font, setFont] = useState("");
   const handleFontChange = (newFont: string) => {
     setFont((prevFont) => (prevFont === newFont ? "" : newFont));
   };
+
+  const [bold,setBold]= useState('')
+  const handleBoldChange = () => {
+    setBold((prevBold) => (prevBold === "font-bold"? "" : "font-bold"))
+  }
 
   return (
     <div className="bg-[#121212] min-h-screen flex flex-row">
@@ -23,18 +35,24 @@ export default function Home() {
             name="type"
             id=""
             placeholder="Start Reflecting..."
-            className={`${font} resize-none w-full  p-5 bg-[#121212]  border-[#5B1F00] outline-none rounded-lg text-white font-DM_sans tracking-tight placeholder:text-[#686868] placeholder:font-Instrument_Serif placeholder:text-xl placeholder:tracking-normal no-scrollbar`}
+            className={`${font} ${bold} resize-none w-full  p-5 bg-[#121212]  border-[#5B1F00] outline-none rounded-lg text-white font-DM_sans tracking-tight placeholder:text-[#686868] placeholder:font-Instrument_Serif placeholder:text-xl placeholder:tracking-normal no-scrollbar`}
           ></textarea>
           <div className="flex sitcky justify-center absolute bottom-20 left-0 right-0">
             <div className=" w-[490px]  bg-[#171717] rounded-[4px] sticky flex flex-row gap-5 justify-center items-center py-3 max-sm:hidden ">
               {Buttons.map((button, index) => {
                 return (
+                  <TooltipProvider key={index}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
                   <div key={index} className="flex flex-row items-center ">
                     <button
                       onClick={() => {
                         button.onClick();
                         if (button.label === "Uppercase") {
                           handleFontChange("font-mono");
+                        }
+                        if (button.label === "Bold") {
+                          handleBoldChange();
                         }
                       }}
                     >
@@ -44,6 +62,12 @@ export default function Home() {
                       />
                     </button>
                   </div>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {button.tooltip}
+                  </TooltipContent>
+                  </Tooltip>
+                  </TooltipProvider>
                 );
               })}
             </div>
