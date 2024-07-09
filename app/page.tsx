@@ -1,78 +1,21 @@
 "use client";
-import FontButton from "@/components/FontButton";
 import Sidebar from "@/components/Sidebar";
-import Buttons from "@/components/ToolBar";
-import Image from "next/image";
-import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { useCallback, useEffect, useRef, useState } from "react";
 
+import Tiptap from "@/components/TipTap/TipTap";
 
 export default function Home() {
-  const [font, setFont] = useState("");
-  const handleFontChange = (newFont: string) => {
-    setFont((prevFont) => (prevFont === newFont ? "" : newFont));
+  const [content, setContent] = useState<string>("");
+  const handleChange = (change: any) => {
+    setContent(change);
   };
-
-  const [bold,setBold]= useState('')
-  const handleBoldChange = () => {
-    setBold((prevBold) => (prevBold === "font-bold"? "" : "font-bold"))
-  }
-
   return (
     <div className="bg-[#121212] min-h-screen flex flex-row">
       <div className="flex sticky h-screen z-0 bg-[#171717] w-[100px] top-0 left-0">
         <Sidebar />
       </div>
       <div className="flex flex-grow flex-col relative">
-        <div className="overflow-y-auto h-[70vh] flex rounded-lg m-5">
-          <textarea
-            name="type"
-            id=""
-            placeholder="Start Reflecting..."
-            className={`${font} ${bold} resize-none w-full  p-5 bg-[#121212]  border-[#5B1F00] outline-none rounded-lg text-white font-DM_sans tracking-tight placeholder:text-[#686868] placeholder:font-Instrument_Serif placeholder:text-xl placeholder:tracking-normal no-scrollbar`}
-          ></textarea>
-          <div className="flex sitcky justify-center absolute bottom-20 left-0 right-0">
-            <div className=" w-[490px]  bg-[#171717] rounded-[4px] sticky flex flex-row gap-5 justify-center items-center py-3 max-sm:hidden ">
-              {Buttons.map((button, index) => {
-                return (
-                  <TooltipProvider key={index}>
-                  <Tooltip>
-                    <TooltipTrigger asChild>
-                  <div key={index} className="flex flex-row items-center ">
-                    <button
-                      onClick={() => {
-                        button.onClick();
-                        if (button.label === "Uppercase") {
-                          handleFontChange("font-mono");
-                        }
-                        if (button.label === "Bold") {
-                          handleBoldChange();
-                        }
-                      }}
-                    >
-                      <button.src
-                        size={40}
-                        className=" text-[#EA580C] hover:text-[black] bg-[#1B1B1B] p-2 rounded-[4px] hover:bg-[#EA580C] transition-all duration-150"
-                      />
-                    </button>
-                  </div>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {button.tooltip}
-                  </TooltipContent>
-                  </Tooltip>
-                  </TooltipProvider>
-                );
-              })}
-            </div>
-          </div>
-        </div>
+        <Tiptap content={content} />
       </div>
     </div>
   );
