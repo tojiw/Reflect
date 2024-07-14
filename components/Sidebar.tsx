@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 const Sidebar = () => {
   return (
-    <div className="p-5 flex flex-col justify-center gap-10 w-full">
+    <div className="p-5 flex flex-col justify-center gap-10 max-w-[100px] w-full">
       {Icons.map((icon, index) => {
         const IconComponent = icon.src;
         return (

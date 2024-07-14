@@ -31,6 +31,18 @@
 .ProseMirror mark{
   background-color: #ea580c;
 }
+.tiptap p.is-editor-empty:first-child::before {
+  color: #adb5bd;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+  font-family: 'Instrument Serif',serif;
+  font-size: 20px
+  
+;
+}
+
 /* @layer base {
     :root {
       --background: 0 0% 100%;

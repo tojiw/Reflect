@@ -6,17 +6,21 @@ import ToolBar from '../ToolBar'
 import Underline from '@tiptap/extension-underline'
 import Highlight from '@tiptap/extension-highlight'
 import Image from '@tiptap/extension-image'
+import Placeholder from '@tiptap/extension-placeholder'
 
 const Tiptap = ({onChange,content}:any) => {
   const handleChange = (newContent:string)=>{
     onChange(newContent)
   }
   const editor = useEditor({
-    extensions: [StarterKit,Underline,Highlight,Image],
+    extensions: [StarterKit,Underline,Highlight,Image,Placeholder.configure({
+      placeholder:'Start Reflecting'
+      
+    })],
     content:content,
     editorProps:{
         attributes:{
-            class:"flex flex-col w-full text-white justify-start rounded-lg px-4 py-3 gap-3 text-[16px] pt-4 outline-none  "
+            class:"flex flex-col  min-h-[30vh] text-white justify-start rounded-lg px-4 py-3 gap-3 text-[16px] pt-10 outline-none placeholder:font-Instrument_Serif  "
         }
     },
     onUpdate:({editor})=>{

@@ -11,10 +11,10 @@ export default function Home() {
   };
   return (
     <div className="bg-[#121212] min-h-screen flex flex-row">
-      <div className="flex sticky h-screen z-0 bg-[#171717] w-[100px] top-0 left-0">
+      <div className="flex sticky h-screen flex-shrink-0 z-0 bg-[#171717] w-[100px] top-0 left-0 mr-5">
         <Sidebar />
       </div>
-      <div className="flex flex-grow flex-col relative">
+      <div className="flex flex-grow flex-col mr-5">
         <Tiptap content={content}
         onChange={(newContent:string)=>handleChange(newContent)}
          />

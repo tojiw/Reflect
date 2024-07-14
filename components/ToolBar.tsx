@@ -37,9 +37,9 @@ const ToolBar = ({ editor, content }: Props) => {
   if (!editor) return null;
 
   return (
-    <div className="flex justify-center">
-      <div className="flex flex-row p-3 py-2 max-w-[730px] bg-[#171717] mt-4 mb-4 rounded-[4px]">
-        <div className="flex flex-row w-full h-full justify-center flex-wrap bg-[#171717] gap-4">
+    <div className="flex justify-center ">
+      <div className="flex flex-row p-3 py-2 max-w-[730px] bg-[#171717] mt-4 mb-4 rounded-[4px] sticky">
+        <div className="flex flex-row w-full h-full justify-center flex-wrap bg-[#171717] gap-4 sticky">
           <div className="flex hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
