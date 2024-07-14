@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Editor, useEditor } from "@tiptap/react";
 import Highlight from "@tiptap/extension-highlight";
 import {
@@ -24,6 +24,16 @@ type Props = {
 };
 
 const ToolBar = ({ editor, content }: Props) => {
+  const [canUndo, setCanUndo] = useState(false);
+  const [canRedo, setCanRedo] = useState(false);
+
+  const ensureBoolean = (value: boolean | undefined): boolean => {
+    return value === true;
+  };
+  useEffect(() => {
+    setCanUndo(ensureBoolean(editor?.can().undo()));
+    setCanRedo(ensureBoolean(editor?.can().redo()));
+  }, [editor]);
   if (!editor) return null;
 
   return (
@@ -120,15 +130,11 @@ const ToolBar = ({ editor, content }: Props) => {
             <button
               onClick={(e: any) => {
                 e.preventDefault();
-                editor
-                  .chain()
-                  .focus()
-                  .toggleHighlight({ color: "orange" })
-                  .run();
+                editor.chain().focus().toggleHighlight().run();
               }}
               className={`p-2
              ${
-               editor.isActive("highlight", { color: "orange" })
+               editor.isActive("highlight")
                  ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
                  : "text-[#EA580C]"
              }
@@ -145,9 +151,9 @@ const ToolBar = ({ editor, content }: Props) => {
                 e.preventDefault();
                 editor.chain().focus().undo().run();
               }}
-              className={`p-2
+              className={`p-2 hover:bg-[#EA580C] hover:text-black hover:transition-all hover:duration-150 rounded-[4px]
              ${
-               editor.isActive("undo")
+               canUndo
                  ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
                  : "text-[#EA580C]"
              }
@@ -163,9 +169,9 @@ const ToolBar = ({ editor, content }: Props) => {
                 e.preventDefault();
                 editor.chain().focus().redo().run();
               }}
-              className={`p-2
+              className={`p-2 hover:bg-[#EA580C] hover:text-black hover:transition-all hover:duration-150 rounded-[4px]
              ${
-               editor.isActive("redo")
+               canRedo
                  ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
                  : "text-[#EA580C]"
              }
@@ -219,11 +225,11 @@ const ToolBar = ({ editor, content }: Props) => {
               <Quote className="w-5 h-5" />
             </button>
           </div>
-          {content.trim() !=="" &&(
+          {/* {content.trim() !== "" && (
             <button className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold">
               Add
             </button>
-          )}
+          )} */}
         </div>
       </div>
     </div>

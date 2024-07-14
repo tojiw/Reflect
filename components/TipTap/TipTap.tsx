@@ -16,7 +16,7 @@ const Tiptap = ({onChange,content}:any) => {
     content:content,
     editorProps:{
         attributes:{
-            class:"flex flex-col w-full border border-[#5B1F00] text-white justify-start rounded-lg px-4 py-3 gap-3 text-[16px] pt-4 outline-none  "
+            class:"flex flex-col w-full text-white justify-start rounded-lg px-4 py-3 gap-3 text-[16px] pt-4 outline-none  "
         }
     },
     onUpdate:({editor})=>{
