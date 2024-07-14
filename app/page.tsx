@@ -15,7 +15,9 @@ export default function Home() {
         <Sidebar />
       </div>
       <div className="flex flex-grow flex-col relative">
-        <Tiptap content={content} />
+        <Tiptap content={content}
+        onChange={(newContent:string)=>handleChange(newContent)}
+         />
       </div>
     </div>
   );

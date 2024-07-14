@@ -1,15 +1,17 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { Editor, useEditor } from "@tiptap/react";
 import Highlight from "@tiptap/extension-highlight";
 import {
   Bold,
-  Heading2,
+  Code,
+  Heading1,
   Highlighter,
   Image,
   ImageIcon,
   Italic,
   List,
   ListOrdered,
+  Quote,
   Redo,
   Strikethrough,
   UnderlineIcon,
@@ -23,17 +25,12 @@ type Props = {
 
 const ToolBar = ({ editor, content }: Props) => {
   if (!editor) return null;
-  const addImage = () => {
-    const url = window.prompt("Enter a URL");
-    if (url) {
-      // editor.chain().focus().setImage({src:url}).run()
-    }
-  };
+
   return (
     <div className="flex justify-center">
-      <div className="flex flex-row p-3 max-w-[530px] bg-[#171717] mt-4 mb-4 rounded-[4px]">
-        <div className="flex flex-row w-full h-full justify-center flex-wrap bg-[#171717] gap-5">
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+      <div className="flex flex-row p-3 py-2 max-w-[730px] bg-[#171717] mt-4 mb-4 rounded-[4px]">
+        <div className="flex flex-row w-full h-full justify-center flex-wrap bg-[#171717] gap-4">
+          <div className="flex hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -50,7 +47,7 @@ const ToolBar = ({ editor, content }: Props) => {
               <Bold className=" w-5 h-5" />
             </button>
           </div>
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -68,7 +65,7 @@ const ToolBar = ({ editor, content }: Props) => {
             </button>
           </div>
 
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -85,7 +82,7 @@ const ToolBar = ({ editor, content }: Props) => {
               <Strikethrough className=" w-5 h-5" />
             </button>
           </div>
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -99,10 +96,10 @@ const ToolBar = ({ editor, content }: Props) => {
              }
             `}
             >
-              <Heading2 className=" w-5 h-5" />
+              <Heading1 className=" w-5 h-5" />
             </button>
           </div>
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -119,7 +116,7 @@ const ToolBar = ({ editor, content }: Props) => {
               <List className=" w-5 h-5" />
             </button>
           </div>
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -142,7 +139,7 @@ const ToolBar = ({ editor, content }: Props) => {
             </button>
           </div>
 
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -160,7 +157,7 @@ const ToolBar = ({ editor, content }: Props) => {
             </button>
           </div>
 
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e: any) => {
                 e.preventDefault();
@@ -177,9 +174,8 @@ const ToolBar = ({ editor, content }: Props) => {
               <Redo className=" w-5 h-5" />
             </button>
           </div>
-          <div className="flex border-[#5B1F00] border rounded-[4px] ">
+          {/* <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
-              onClick={addImage}
               className={`p-2
              ${
                editor.isActive("image")
@@ -190,7 +186,44 @@ const ToolBar = ({ editor, content }: Props) => {
             >
               <ImageIcon className=" w-5 h-5" />
             </button>
+          </div> */}
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                editor.chain().focus().toggleCode().run();
+              }}
+              className={`p-2
+           ${
+             editor.isActive("code")
+               ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
+               : "text-[#EA580C]"
+           }`}
+            >
+              <Code className="w-5 h-5" />
+            </button>
           </div>
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                editor.chain().focus().setBlockquote().run();
+              }}
+              className={`p-2
+           ${
+             editor.isActive("blockquote")
+               ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
+               : "text-[#EA580C]"
+           }`}
+            >
+              <Quote className="w-5 h-5" />
+            </button>
+          </div>
+          {content.trim() !=="" &&(
+            <button className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold">
+              Add
+            </button>
+          )}
         </div>
       </div>
     </div>
