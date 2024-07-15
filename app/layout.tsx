@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Instrument_Serif, DM_Sans } from "next/font/google";
 import "./globals.css";
-
+import { Toaster } from "@/components/ui/toaster"
+import { ToastProvider } from "@/components/ui/toast";
 const inter = Inter({ subsets: ["latin"] });
 const instrument = Instrument_Serif({
   weight: ["400"],
@@ -23,6 +24,7 @@ export default function RootLayout({
     <html lang="en" className={`${instrument.className}  ${dm_sans.className}`}>
       <body >
         {children}
+        <Toaster/>
       </body>
     </html>
   );

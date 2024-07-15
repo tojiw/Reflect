@@ -5,6 +5,12 @@ import { v4 as uuidv4 } from "uuid";
 import Tiptap from "@/components/TipTap/TipTap";
 import Journals from "@/components/Journals";
 import { EyeIcon, EyeOff } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 
 export default function Home() {
   const [content, setContent] = useState<string>("");
@@ -48,25 +54,32 @@ export default function Home() {
         </form>
         <div className="mt-4">
           <div className="flex justify-center">
-            <button
-              onClick={toggleJournals}
-              className="p-3 border border-[#ea580c]  hover:bg-[#ea580c]  hover:transition-all hover:duration-200 hover:text-black text-white tracking-tight rounded-[4px]"
-            >
-              {DisplayJournals ? (
-                <div className="flex gap-1">
-                  <EyeOff className="mr-2" />
-                  Hide Reflections
-                </div>
-              ) : (
-                <div className="flex gap-1">
-                  <EyeIcon className="mr-2" />
-                  Show Reflections
-                </div>
-              )}
-            </button>
+            <TooltipProvider>
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <button
+                    onClick={toggleJournals}
+                    className="p-2 border border-[#ea580c] hover:bg-[#ea580c] hover:transition-all hover:duration-200 hover:text-black text-white tracking-tight rounded-full"
+                  >
+                    {DisplayJournals ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <EyeIcon size={20} />
+                    )}
+                  </button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  <p>
+                    {DisplayJournals
+                      ? "Hide Reflections"
+                      : "Display Reflections"}
+                  </p>
+                </TooltipContent>
+              </Tooltip>
+            </TooltipProvider>
           </div>
           {DisplayJournals && <Journals />}
-        </div>
+        </div>{" "}
       </div>
     </div>
   );

@@ -17,6 +17,7 @@ import {
   UnderlineIcon,
   Undo,
 } from "lucide-react";
+import { useToast } from "./ui/use-toast";
 
 type Props = {
   editor: Editor | null;
@@ -26,6 +27,8 @@ type Props = {
 const ToolBar = ({ editor, content }: Props) => {
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
+
+  const{toast} = useToast()
 
   const ensureBoolean = (value: boolean | undefined): boolean => {
     return value === true;
@@ -227,7 +230,12 @@ const ToolBar = ({ editor, content }: Props) => {
           </div>
           {content.trim() !== "" && (
             <button className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold"
-            type="submit">
+            type="submit" onClick={()=>{
+              toast({
+                description:"Reflection has been added."
+              })
+              console.log("clicked")
+            }}>
               Add
             </button>
           )}
