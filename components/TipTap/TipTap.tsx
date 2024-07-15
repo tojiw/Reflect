@@ -20,7 +20,7 @@ const Tiptap = ({onChange,content}:any) => {
     content:content,
     editorProps:{
         attributes:{
-            class:"flex flex-col  min-h-[30vh] text-white justify-start rounded-lg px-[200px] py-3 gap-3 text-[16px] pt-10 outline-none placeholder:font-Instrument_Serif  "
+            class:"flex flex-col  min-h-[30vh] text-white justify-start rounded-lg px-[200px] py-3 gap-3 text-[16px] pt-10 outline-none placeholder:font-Instrument_Serif flex-shrink  "
         }
     },
     onUpdate:({editor})=>{

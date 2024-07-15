@@ -225,11 +225,12 @@ const ToolBar = ({ editor, content }: Props) => {
               <Quote className="w-5 h-5" />
             </button>
           </div>
-          {/* {content.trim() !== "" && (
-            <button className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold">
+          {content.trim() !== "" && (
+            <button className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold"
+            type="submit">
               Add
             </button>
-          )} */}
+          )}
         </div>
       </div>
     </div>
