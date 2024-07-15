@@ -12,23 +12,23 @@ const Journals = () => {
   }, []);
   return (
     <div>
-      {data.map((item: any, index: any) => (
-        <ResponsiveMasonry
-          columnsCountBreakPoints={{ 0: 1, 750: 2, 1024: 3 }}
-        >
-          <Masonry>
-            <div key={index} className="max-w-6xl mx-auto px-5">
-              <div className="text-lg font-Instrument_Serif text-[#EA580C]">
-                Reflection {index + 1}
-                <div className="border border-[#EA580C] px-6 py-4 rounded-[4px]" 
-                dangerouslySetInnerHTML={{__html:item.content}}>
-
-                </div>
+      <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 750: 2, 1024: 3 }}>
+        <Masonry>
+          {data.map((item: any, index: any) => (
+            <div key={index} className="max-w-6xl mx-auto px-5 py-5">
+              <div className=" font-DM_Sans tracking-tight text-white flex flex-col justify-center items-center">
+                <p className="text-white font-Instrument_Serif text-[20px] tracking-wide bg-[#5B1F00] p-2 rounded-[4px] w-full text-center">
+                  Reflection {index + 1}
+                </p>
+                <div
+                  className="borde border-[#5B1F00] px-6 py-4 rounded-[4px]"
+                  dangerouslySetInnerHTML={{ __html: item.content }}
+                ></div>
               </div>
             </div>
-          </Masonry>
-        </ResponsiveMasonry>
-      ))}
+          ))}
+        </Masonry>
+      </ResponsiveMasonry>
     </div>
   );
 };

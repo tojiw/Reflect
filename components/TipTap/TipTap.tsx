@@ -14,13 +14,13 @@ const Tiptap = ({onChange,content}:any) => {
   }
   const editor = useEditor({
     extensions: [StarterKit,Underline,Highlight,Image,Placeholder.configure({
-      placeholder:'Start Reflecting'
+      placeholder:'Start Reflecting...'
       
     })],
     content:content,
     editorProps:{
         attributes:{
-            class:"flex flex-col  min-h-[30vh] text-white justify-start rounded-lg px-[200px] py-3 gap-3 text-[16px] pt-10 outline-none placeholder:font-Instrument_Serif flex-shrink  "
+            class:"flex flex-col  min-h-[30vh] text-white justify-start rounded-lg px-[200px] py-3 gap-3 text-[16px] pt-10 outline-none placeholder:font-Instrument_Serif  "
         }
     },
     onUpdate:({editor})=>{
