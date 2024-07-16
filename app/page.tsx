@@ -49,6 +49,8 @@ export default function Home() {
             <Tiptap
               content={content}
               onChange={(newContent: string) => handleChange(newContent)}
+              toggleJournals={toggleJournals}
+              DisplayJournals={DisplayJournals}
             />
           </div>
         </form>

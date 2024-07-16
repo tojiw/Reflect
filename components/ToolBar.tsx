@@ -4,6 +4,7 @@ import Highlight from "@tiptap/extension-highlight";
 import {
   Bold,
   Code,
+  Eye,
   Heading1,
   Highlighter,
   Image,
@@ -14,6 +15,7 @@ import {
   Quote,
   Redo,
   Strikethrough,
+  Trash2,
   UnderlineIcon,
   Undo,
 } from "lucide-react";
@@ -22,13 +24,20 @@ import { useToast } from "./ui/use-toast";
 type Props = {
   editor: Editor | null;
   content: string;
+  toggleJournals: () => void;
+  DisplayJournals: boolean;
 };
 
-const ToolBar = ({ editor, content }: Props) => {
+const ToolBar = ({
+  editor,
+  content,
+  toggleJournals,
+  DisplayJournals,
+}: Props) => {
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
 
-  const{toast} = useToast()
+  const { toast } = useToast();
 
   const ensureBoolean = (value: boolean | undefined): boolean => {
     return value === true;
@@ -183,19 +192,7 @@ const ToolBar = ({ editor, content }: Props) => {
               <Redo className=" w-5 h-5" />
             </button>
           </div>
-          {/* <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
-            <button
-              className={`p-2
-             ${
-               editor.isActive("image")
-                 ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
-                 : "text-[#EA580C]"
-             }
-            `}
-            >
-              <ImageIcon className=" w-5 h-5" />
-            </button>
-          </div> */}
+
           <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
             <button
               onClick={(e) => {
@@ -228,14 +225,51 @@ const ToolBar = ({ editor, content }: Props) => {
               <Quote className="w-5 h-5" />
             </button>
           </div>
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                toggleJournals();
+              }}
+              className={`p-2
+           ${
+             DisplayJournals
+               ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
+               : "text-[#EA580C]"
+           }`}
+            >
+              <Eye className="w-5 h-5" />
+            </button>
+          </div>
+
+          <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                editor.chain().focus().setBlockquote().run();
+              }}
+              className={`p-2
+           ${
+             editor.isActive("blockquote")
+               ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
+               : "text-[#EA580C]"
+           }`}
+            >
+              <Trash2 className="w-5 h-5" />
+            </button>
+          </div>
+
           {content.trim() !== "" && (
-            <button className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold"
-            type="submit" onClick={()=>{
-              toast({
-                description:"Reflection has been added."
-              })
-              console.log("clicked")
-            }}>
+            <button
+              className="p-2 text-white hover:bg-[#ea580c] hover:transition-all hover:duration-150 hover:text-black border border-[#5b1f00] rounded-lg text-sm font-semibold"
+              type="submit"
+              onClick={() => {
+                toast({
+                  description: "Reflection has been added.",
+                });
+                console.log("clicked");
+              }}
+            >
               Add
             </button>
           )}
