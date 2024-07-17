@@ -13,6 +13,7 @@ const Tiptap = ({
   content,
   toggleJournals,
   DisplayJournals,
+  deleteJournalEntry
 }: any) => {
   const handleChange = (newContent: string) => {
     onChange(newContent);
@@ -31,7 +32,7 @@ const Tiptap = ({
     editorProps: {
       attributes: {
         class:
-          "flex flex-col  min-h-[30vh] text-white font-Instrument_Serif justify-start rounded-lg px-[200px] py-3 gap-3 text-[24px] pt-10 outline-none placeholder:font-Instrument_Serif placeholder:text-[24px]  ",
+          "  min-h-[50vh] text-white font-Instrument_Serif justify-start rounded-lg px-4 md:px-6 lg:px-[200px] py-3 gap-3 text-[24px] pt-10 outline-none placeholder:font-Instrument_Serif placeholder:text-[24px]",
       },
     },
     onUpdate: ({ editor }) => {
@@ -40,12 +41,13 @@ const Tiptap = ({
   });
 
   return (
-    <div className="w-full px-4">
+    <div className="w-full p-4">
       <ToolBar
         editor={editor}
         content={content}
         toggleJournals={toggleJournals}
         DisplayJournals={DisplayJournals}
+        deleteJournalEntry={deleteJournalEntry}
       />
       <EditorContent editor={editor} />
     </div>

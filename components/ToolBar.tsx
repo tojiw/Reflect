@@ -4,19 +4,16 @@ import Highlight from "@tiptap/extension-highlight";
 import {
   Bold,
   Code,
-  Eye,
+  EyeIcon,
+  EyeOff,
   Heading1,
   Highlighter,
-  Image,
-  ImageIcon,
   Italic,
   List,
-  ListOrdered,
   Quote,
   Redo,
   Strikethrough,
   Trash2,
-  UnderlineIcon,
   Undo,
 } from "lucide-react";
 import { useToast } from "./ui/use-toast";
@@ -26,6 +23,7 @@ type Props = {
   content: string;
   toggleJournals: () => void;
   DisplayJournals: boolean;
+  deleteJournalEntry:()=>void
 };
 
 const ToolBar = ({
@@ -33,6 +31,7 @@ const ToolBar = ({
   content,
   toggleJournals,
   DisplayJournals,
+  deleteJournalEntry
 }: Props) => {
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -238,7 +237,11 @@ const ToolBar = ({
                : "text-[#EA580C]"
            }`}
             >
-              <Eye className="w-5 h-5" />
+               {DisplayJournals ? (
+                      <EyeOff size={20} />
+                    ) : (
+                      <EyeIcon size={20} />
+                    )}
             </button>
           </div>
 
@@ -246,7 +249,7 @@ const ToolBar = ({
             <button
               onClick={(e) => {
                 e.preventDefault();
-                editor.chain().focus().setBlockquote().run();
+                deleteJournalEntry()
               }}
               className={`p-2
            ${
