@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
 import { Editor, useEditor } from "@tiptap/react";
-import Highlight from "@tiptap/extension-highlight";
 import {
   Bold,
   Code,
@@ -17,13 +16,24 @@ import {
   Undo,
 } from "lucide-react";
 import { useToast } from "./ui/use-toast";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 type Props = {
   editor: Editor | null;
   content: string;
   toggleJournals: () => void;
   DisplayJournals: boolean;
-  deleteJournalEntry:()=>void
+  deleteJournalEntry: () => void;
 };
 
 const ToolBar = ({
@@ -31,7 +41,7 @@ const ToolBar = ({
   content,
   toggleJournals,
   DisplayJournals,
-  deleteJournalEntry
+  deleteJournalEntry,
 }: Props) => {
   const [canUndo, setCanUndo] = useState(false);
   const [canRedo, setCanRedo] = useState(false);
@@ -237,29 +247,41 @@ const ToolBar = ({
                : "text-[#EA580C]"
            }`}
             >
-               {DisplayJournals ? (
-                      <EyeOff size={20} />
-                    ) : (
-                      <EyeIcon size={20} />
-                    )}
+              {DisplayJournals ? <EyeOff size={20} /> : <EyeIcon size={20} />}
             </button>
           </div>
 
           <div className="flex  hover:border-[#5B1F00] hover:border hover:duration-150 border border-[#171717] rounded-[4px] ">
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                deleteJournalEntry()
-              }}
-              className={`p-2
-           ${
-             editor.isActive("blockquote")
-               ? "bg-[#EA580C] text-black transition-all duration-150 rounded-[4px]"
-               : "text-[#EA580C]"
-           }`}
-            >
-              <Trash2 className="w-5 h-5" />
-            </button>
+            <AlertDialog>
+              <button
+                onClick={(e) => {
+                  e.preventDefault();
+                  deleteJournalEntry();
+                  
+                }}
+                className={`p-2 
+                }`}
+              >
+                <AlertDialogTrigger>
+                  <Trash2 className="w-5 h-5 " color="#EA580C" />
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>
+                      Are you absoulutely sure?
+                    </AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This action cannot be undone. This will permanently remove
+                      all saved entries from the storage.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction>Continue</AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </button>
+            </AlertDialog>
           </div>
 
           {content.trim() !== "" && (
